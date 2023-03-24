@@ -115,17 +115,17 @@ def scan_targets(target_queue, task_status):
 if __name__ == '__main__':
     # Parse input
     parser = argparse.ArgumentParser(description='Bruteforce particular SSH IP blocks')
-    parser.add_argument('--inputs', metavar='-i', type=str,
+    parser.add_argument('-i', '--inputs', type=str,
         help='IP ranges input directory', default='targets/')
-    parser.add_argument('--lists', metavar='-l', type=str,
+    parser.add_argument('-l', '--lists', type=str,
         help='Password lists directory', default='lists/')
-    parser.add_argument('--output', metavar='-o', type=str,
+    parser.add_argument('-o', '--output', type=str,
         help='Specify output file', default='result.lst')
-    parser.add_argument('--keyword', metavar='-k', type=str,
+    parser.add_argument('-k', '--keyword', type=str,
         help='Specify keyword for honeypot detection', default='hacktheplanet')
-    parser.add_argument('--workers', metavar='-w', type=int,
+    parser.add_argument('-w', '--workers', type=int,
         help='Specify number of processes for bruteforcing', default=10)
-    parser.add_argument('--honeypot', metavar='-H', type=str,
+    parser.add_argument('-H', '--honeypot-list', type=str,
         help='Specify file for detected honeypots to be written',
                                         default='honeypots.lst')
 
