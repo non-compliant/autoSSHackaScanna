@@ -10,7 +10,7 @@ import queue
 import time
 import os
 
-"""
+'''
   ___        _        _____ _____ _   _            _         _____                             
  / _ \      | |      /  ___/  ___| | | |          | |       /  ___|                            
 / /_\ \_   _| |_ ___ \ `--.\ `--.| |_| | __ _  ___| | ____ _\ `--.  ___ __ _ _ __  _ __   __ _ 
@@ -19,7 +19,7 @@ import os
 \_| |_/\__,_|\__\___/\____/\____/\_| |_/\__,_|\___|_|\_\__,_\____/ \___\__,_|_| |_|_| |_|\__,_|
 Alright, what are the three most common used passwords...
 
-"""
+'''
 
 global args
 global colours
@@ -36,10 +36,12 @@ def detect_open_port(addr, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(2)
         sock.connect((addr, port))
+        print('['+colours['green']+'SCANNER'+colours['clear']+'] %s %d open' % (addr, port))
         sock.close()
         return True
     except:
         sock.close()
+        print('['+colours['red']+'SCANNER'+colours['clear']+'] %s %d closed' % (addr, port))
         return False
 
 def ssh_connect(ssh_cli, addr, user, password):
