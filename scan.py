@@ -22,6 +22,7 @@ Alright, what are the three most common used passwords...
 '''
 
 global args
+global lock
 global colours
 
 def join_lists(files):
@@ -99,7 +100,7 @@ def bruteforce_targets(target_queue, task_status):
             while not hacked_devices.empty():
                 hacked_device = hacked_devices.get()
                 file_name = args.honeypot if hacked_device['is_honeypot'] else args.output
-                with open(file_name, 'a') as f:
+                with lock and open(file_name, 'a') as f:
                     f.write('%s:%d:%s:%s\n' % (hacked_device['addr'], hacked_device['port'],
                                                 hacked_device['user'], hacked_device['pass']))
 
@@ -153,6 +154,7 @@ if __name__ == '__main__':
     task_status = multiprocessing.Value('i', 1)
     target_queue = [ multiprocessing.Queue() for i in range(args.workers) ]
 
+    lock = multiprocessing.Lock()
     brute_force_processes = [ multiprocessing.Process(None, bruteforce_targets,
             args=(target_queue[i], task_status)) for i in range(args.workers) ]
     for i in range(args.workers): brute_force_processes[i].start()
