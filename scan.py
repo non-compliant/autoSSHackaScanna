@@ -104,7 +104,7 @@ def bruteforce_targets(target_queue, task_status):
                     f.write('%s:%d:%s:%s\n' % (hacked_device['addr'], hacked_device['port'],
                                                 hacked_device['user'], hacked_device['pass']))
 
-def scan_targets(target_queue, task_status):
+def scan_targets(ipranges, target_queue, task_status):
     for pos, iprange in enumerate(ipranges):
         hosts = list(iprange.hosts())
         num_hosts = len(hosts)
@@ -158,5 +158,5 @@ if __name__ == '__main__':
     brute_force_processes = [ multiprocessing.Process(None, bruteforce_targets,
             args=(target_queue[i], task_status)) for i in range(args.workers) ]
     for i in range(args.workers): brute_force_processes[i].start()
-    scan_targets(target_queue, task_status)
+    scan_targets(ipranges, target_queue, task_status)
     for i in range(args.workers): brute_force_processes[i].join()
